@@ -1,0 +1,9 @@
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\bin\Debug\netstandard2.0\FblaQuizzerBusiness.deps.json
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\bin\Debug\netstandard2.0\FblaQuizzerBusiness.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\obj\Debug\netstandard2.0\FblaQuizzerBusiness.csproj.CoreCompileInputs.cache
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\obj\Debug\netstandard2.0\FblaQuizzerBusiness.AssemblyInfoInputs.cache
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\obj\Debug\netstandard2.0\FblaQuizzerBusiness.AssemblyInfo.cs
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\bin\Debug\netstandard2.0\FblaQuizzerBusiness.pdb
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\obj\Debug\netstandard2.0\FblaQuizzerBusiness.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\obj\Debug\netstandard2.0\FblaQuizzerBusiness.pdb
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerBusiness\obj\Debug\netstandard2.0\FblaQuizzerBusiness.csprojAssemblyReference.cache

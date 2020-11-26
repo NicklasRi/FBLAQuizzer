@@ -1,0 +1,16 @@
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\FblaQuizzerTest.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\FblaQuizzerTest.pdb
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\FblaQuizzerBusiness.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\FblaQuizzerBusiness.pdb
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\obj\Debug\FblaQuizzerTest.csprojAssemblyReference.cache
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\obj\Debug\FblaQuizzerTest.csproj.CoreCompileInputs.cache
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\obj\Debug\FblaQuizzerTest.csproj.CopyComplete
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\obj\Debug\FblaQuizzerTest.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerTest\obj\Debug\FblaQuizzerTest.pdb

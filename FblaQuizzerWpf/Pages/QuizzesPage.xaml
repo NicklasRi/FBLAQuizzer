@@ -1,0 +1,21 @@
+﻿<Page x:Class="FblaQuizzerWpf.Pages.QuizzesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FblaQuizzerWpf.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="QuizzesPage">
+
+    <Grid>
+        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="400" ItemsSource="{Binding Quizzes}" SelectionChanged="ListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Page>
