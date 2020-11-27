@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\App.xaml
 71256711384
 
-19-991393837
+20-75193628
 351104205695
 Controls\MultipleChoiceQuestionControl.xaml;Controls\TrueOrFalseQuestionControl.xaml;Dialogs\NewQuizDialog.xaml;MainWindow.xaml;Pages\HomePage.xaml;Pages\QuestionPage.xaml;Pages\QuizzesPage.xaml;
 
-True
+False
 

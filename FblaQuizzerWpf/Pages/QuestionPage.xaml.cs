@@ -40,7 +40,14 @@ namespace FblaQuizzerWpf.Pages
         private void LoadQuestion(Guid id)
         {
             IQuestion question = QuestionData.GetQuestion(id);
-            ((QuestionViewModel)this.DataContext).Question = question;
+            QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
+            questionViewModel.Question = question;
+            MultipleChoiceQuestion multipleChoicequestion = question as MultipleChoiceQuestion;
+            if (multipleChoicequestion != null)
+            {
+                questionViewModel.Options = multipleChoicequestion.Options;
+            }
+            
         }
 
         private void LoadQuizQuestion(IQuizQuestion quizQuestion)

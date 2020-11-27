@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:FblaQuizzerWpf.Pages"
       xmlns:converters="clr-namespace:FblaQuizzerWpf.Converters"
       xmlns:controls="clr-namespace:FblaQuizzerWpf.Controls"
+      xmlns:business="clr-namespace:FblaQuizzerBusiness.Models;assembly=FblaQuizzerBusiness"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="QuestionPage">
@@ -14,6 +15,7 @@
         <converters:InvertBooleanConverter  x:Key="boolConvert"/>
         <converters:BooleanToVisibleConverter x:Key="boolToVisibleConvert"/>
         <converters:InvertBoolToVisibleConverter x:Key="invertBoolToVisibleConvert"/>
+        <converters:QuestionTypeToVisibleConverter x:Key="questionTypeToVisibleConvert"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -26,8 +28,8 @@
         <Label x:Name="NumberLabel" FontSize="16" FontWeight="Bold"></Label>
         <Label x:Name="TopicLabel" Grid.Row="1"></Label>
         <Label x:Name= "TextLabel" Grid.Row="2"></Label>
-        <controls:TrueOrFalseQuestionControl Grid.Row="3" Answer="{Binding Question.Answer}" Visibility="Hidden"></controls:TrueOrFalseQuestionControl>
-        <controls:MultipleChoiceQuestionControl Grid.Row="3" Options="{Binding Options}"></controls:MultipleChoiceQuestionControl>
+        <controls:TrueOrFalseQuestionControl Grid.Row="3" Answer="{Binding Question.Answer}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.TrueFalse}}"></controls:TrueOrFalseQuestionControl>
+        <controls:MultipleChoiceQuestionControl Grid.Row="3" Options="{Binding Options}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.MultipleChoice}}"></controls:MultipleChoiceQuestionControl>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

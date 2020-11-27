@@ -9,9 +9,7 @@ using FblaQuizzerBusiness.Models;
 namespace FblaQuizzerWpf.ViewModels
 {
     public class QuestionViewModel:ViewModelBase
-    {
-        private bool isFirstQuestion = true;
-        private bool isLastQuestion = false;
+    {   
         public QuestionViewModel(Quiz quiz)
         {
             this.Quiz = quiz;
@@ -19,10 +17,37 @@ namespace FblaQuizzerWpf.ViewModels
 
         public Quiz Quiz { get; }
 
-        public int QuestionIndex { get; set; }
+        private int questionIndex;
+        public int QuestionIndex
+        {
+            get
+            {
+                return questionIndex;
+            }
 
-        public IQuestion Question { get; set; }
+            set
+            {
+                questionIndex = value;
+                OnPropertyChanged(nameof(QuestionIndex));
+            }
+        }
 
+        private IQuestion question;
+        public IQuestion Question
+        {
+            get
+            {
+                return question;
+            }
+
+            set
+            {
+                question = value;
+                OnPropertyChanged(nameof(Question));
+            }
+        }
+
+        private bool isFirstQuestion = true;
         public bool IsFirstQuestion
         {
             get
@@ -35,6 +60,8 @@ namespace FblaQuizzerWpf.ViewModels
                 OnPropertyChanged(nameof(IsFirstQuestion));
             }
         }
+
+        private bool isLastQuestion = false;
         public bool IsLastQuestion {
             get
             {
@@ -48,12 +75,21 @@ namespace FblaQuizzerWpf.ViewModels
             }
         }
 
+        
+
+        private IEnumerable<MultipleChoiceOption> options;
         public IEnumerable<MultipleChoiceOption> Options
         {
+            
             get
             {
-                MultipleChoiceQuestion question = this.Question as MultipleChoiceQuestion;
-                return question == null ? null : question.Options;
+                return options;
+            }
+
+            set
+            {
+                options = value;
+                OnPropertyChanged("Options");
             }
         }
     }

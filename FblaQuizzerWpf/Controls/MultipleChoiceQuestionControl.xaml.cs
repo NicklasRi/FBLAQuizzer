@@ -32,6 +32,17 @@ namespace FblaQuizzerWpf.Controls
             typeof(MultipleChoiceQuestionControl),
             new PropertyMetadata());
 
-        public IEnumerable<MultipleChoiceOption> Options { get; set; }
+        public IEnumerable<MultipleChoiceOption> Options
+        {
+            get
+            {
+                return (IEnumerable<MultipleChoiceOption>)this.GetValue(OptionsProperty);
+            }
+
+            set
+            {
+                this.SetValue(OptionsProperty, value);
+            }
+        }
     }
 }

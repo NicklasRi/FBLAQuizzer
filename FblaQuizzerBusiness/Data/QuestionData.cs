@@ -291,7 +291,7 @@ namespace FblaQuizzerBusiness.Data
                     }
                 }
 
-                command.CommandText = "Select Id, MatchingAnswerOptionId, MatchingAnswerPromptId from MatchingAnswer where @id = QuestionId";
+                command.CommandText = "Select Id, MatchingAnswerOptionId, MatchingAnswerPromptId from MatchingQuestionKey where @id = QuestionId";
 
                 using (DbDataReader reader = command.ExecuteReader())
                 {
