@@ -99,17 +99,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\MatchingQuestionControl.xaml.cs">
+      <DependentUpon>MatchingQuestionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MultipleChoiceQuestionControl.xaml.cs">
       <DependentUpon>MultipleChoiceQuestionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TextQuestionControl.xaml.cs">
+      <DependentUpon>TextQuestionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TrueOrFalseQuestionControl.xaml.cs">
       <DependentUpon>TrueOrFalseQuestionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibleConverter.cs" />
+    <Compile Include="Converters\MultipleChoiceToBooleanConverter.cs" />
+    <Compile Include="Converters\QuestionTypeToEnabledConverter.cs" />
     <Compile Include="Converters\QuestionTypeToVisibleConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Converters\InvertBoolToVisibleConverter.cs" />
-    <Compile Include="Converters\MultipleChoiceOptionConverter.cs" />
+    <Compile Include="CustomControls\MultipleChoiceRadioButton.cs" />
     <Compile Include="Dialogs\NewQuizDialog.xaml.cs">
       <DependentUpon>NewQuizDialog.xaml</DependentUpon>
     </Compile>
@@ -119,10 +127,20 @@
     <Compile Include="Pages\QuestionPage.xaml.cs">
       <DependentUpon>QuestionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MatchingAnswerOptionViewModel.cs" />
+    <Compile Include="ViewModels\MatchingAnswerPromptViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\QuizzesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Controls\MatchingQuestionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MultipleChoiceQuestionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TextQuestionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace FblaQuizzerBusiness.Models
 {
-    class MultipleChoiceQuizQuestion
+    public class MultipleChoiceQuizQuestion : QuizQuestion
     {
+        public Guid? Answer { get; set; }
     }
 }

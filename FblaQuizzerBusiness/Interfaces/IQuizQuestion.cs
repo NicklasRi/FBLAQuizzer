@@ -10,10 +10,8 @@ namespace FblaQuizzerBusiness.Interfaces
         Guid Id { get; set; }
         Guid QuizId { get; set; }
         Guid QuestionId { get; set; }
-        string Text { get; set; }
-        QuestionType QuestionType { get; set; }
-        string Topic { get; set; }
         bool? Correct { get; set; }
         byte QuestionNumber { get; set; }
+        QuestionType QuestionType { get; set; }
     }
 }

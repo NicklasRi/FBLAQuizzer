@@ -25,10 +25,21 @@ namespace FblaQuizzerWpf.Controls
             InitializeComponent();
         }
 
-        public bool Answer { get; set; }
-
         public static readonly DependencyProperty AnswerProperty = 
             DependencyProperty.Register
             ("Answer", typeof(bool),typeof(TrueOrFalseQuestionControl), new PropertyMetadata(null));
+
+        public bool Answer
+        {
+            get
+            {
+                return (bool)this.GetValue(AnswerProperty);
+            }
+
+            set
+            {
+                this.SetValue(AnswerProperty, value);
+            }
+        }
     }
 }

@@ -26,11 +26,11 @@ namespace FblaQuizzerWpf.Controls
             InitializeComponent();
         }
 
-        public DependencyProperty OptionsProperty = DependencyProperty
+        public static readonly DependencyProperty OptionsProperty = DependencyProperty
             .Register("Options",
             typeof(IEnumerable<MultipleChoiceOption>),
             typeof(MultipleChoiceQuestionControl),
-            new PropertyMetadata());
+            new PropertyMetadata(null));
 
         public IEnumerable<MultipleChoiceOption> Options
         {
@@ -42,6 +42,23 @@ namespace FblaQuizzerWpf.Controls
             set
             {
                 this.SetValue(OptionsProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty AnswerProperty =
+            DependencyProperty.Register
+            ("Answer", typeof(Guid), typeof(MultipleChoiceQuestionControl), new PropertyMetadata(null));
+        
+        public Guid Answer
+        {
+            get
+            {
+                return (Guid)this.GetValue(AnswerProperty);
+            }
+
+            set
+            {
+                this.SetValue(AnswerProperty, value);
             }
         }
     }

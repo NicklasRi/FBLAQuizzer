@@ -26,15 +26,5 @@ namespace FblaQuizzerBusiness.Models
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<IQuizQuestion> Questions
-        {
-            get { 
-                if (this.questions == null)
-                {
-                    this.questions = QuestionData.GetAll(this.Id);
-                }
-                return questions;
-            }
-        }
     }
 }

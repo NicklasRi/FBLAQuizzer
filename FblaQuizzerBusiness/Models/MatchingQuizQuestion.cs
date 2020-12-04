@@ -6,6 +6,6 @@ namespace FblaQuizzerBusiness.Models
 {
     public class MatchingQuizQuestion: QuizQuestion
     {
-        public List<MatchingAnswer> MatchingAnswers { get; set; }
+        public IEnumerable<MatchingAnswer> MatchingAnswers { get; set; }
     }
 }

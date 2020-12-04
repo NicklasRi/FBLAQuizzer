@@ -6,7 +6,7 @@ namespace FblaQuizzerBusiness.Models
 {
     public class MatchingAnswerPrompt
     {
-        public Guid Id { get; internal set; }
-        public string Text { get; internal set; }
+        public Guid Id { get; set; }
+        public string Text { get; set; }
     }
 }

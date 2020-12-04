@@ -24,61 +24,95 @@ namespace FblaQuizzerWpf.Pages
     /// </summary>
     public partial class QuestionPage : Page
     {
+        private IEnumerable<QuizQuestionDisplay> quizQuestionsDisplay = null;
+        private int questionIndex = 0;
+
         public QuestionPage(QuestionViewModel viewModel)
         {
             InitializeComponent();
 
             this.DataContext = viewModel;
 
-            IQuizQuestion quizQuestion = viewModel.Quiz.Questions.First();
+            quizQuestionsDisplay = QuizQuestionData.GetQuizQuestionsDisplay(viewModel.Quiz.Id);
 
-            this.LoadQuizQuestion(quizQuestion);
+            QuizQuestionDisplay firstQuizQuestion = quizQuestionsDisplay.First();
 
-            this.LoadQuestion(quizQuestion.QuestionId);
+            this.LoadQuizQuestion(firstQuizQuestion.Id);
+
+            this.LoadQuestion(firstQuizQuestion.QuestionId);
         }
 
         private void LoadQuestion(Guid id)
         {
             IQuestion question = QuestionData.GetQuestion(id);
+            this.TopicLabel.Content = question.Topic;
+            this.TextLabel.Content = question.Text;
+
             QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
             questionViewModel.Question = question;
-            MultipleChoiceQuestion multipleChoicequestion = question as MultipleChoiceQuestion;
-            if (multipleChoicequestion != null)
+
+            MultipleChoiceQuestion multipleChoiceQuestion = question as MultipleChoiceQuestion;
+            if (multipleChoiceQuestion != null)
             {
-                questionViewModel.Options = multipleChoicequestion.Options;
+                questionViewModel.MultipleChoiceOptions = multipleChoiceQuestion.Options;
             }
-            
+
+            MatchingQuestion matchingQuestion = question as MatchingQuestion;
+            if (matchingQuestion != null)
+            {
+                LoadMatchingQuestion(matchingQuestion);
+            }
         }
 
-        private void LoadQuizQuestion(IQuizQuestion quizQuestion)
+        private void LoadQuizQuestion(Guid quizQuestionId)
         {
+            IQuizQuestion quizQuestion = QuizQuestionData.GetQuizQuestion(quizQuestionId);
+            QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
+            questionViewModel.QuizQuestion = quizQuestion;
             this.NumberLabel.Content = string.Format("Question {0}", quizQuestion.QuestionNumber);
-            this.TopicLabel.Content = quizQuestion.Topic;
-            this.TextLabel.Content = quizQuestion.Text;
         }
 
+        private void LoadMatchingQuestion(MatchingQuestion matchingQuestion)
+        {
+            QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
+       
+            MatchingQuizQuestion matchingQuizQuestion = (MatchingQuizQuestion)questionViewModel.QuizQuestion;
+            
+            if(matchingQuizQuestion.MatchingAnswers == null)
+            {
+                List<MatchingAnswerDisplay> matchingAnswers = new List<MatchingAnswerDisplay>();
+
+                for (int i = 0; i < matchingQuestion.Prompts.Count(); i++)
+                {
+                    MatchingAnswer matchingAnswer = new MatchingAnswer();
+                    matchingAnswer.Id = Guid.NewGuid();
+                    matchingAnswer.MatchingAnswerOptionId = matchingQuestion.Options.ElementAt(i).Id;
+                    matchingAnswer.MatchingAnswerPromptId = matchingQuestion.Prompts.ElementAt(i).Id;
+                }
+            }
+        }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            IQuizQuestion quizQuestion = viewModel.Quiz.Questions.ElementAt(++viewModel.QuestionIndex);
-            this.LoadQuizQuestion(quizQuestion);
-            this.LoadQuestion(quizQuestion.QuestionId);
+            QuizQuestionDisplay quizQuestionDisplay = quizQuestionsDisplay.ElementAt(++questionIndex);
+            this.LoadQuizQuestion(quizQuestionDisplay.Id);
+            this.LoadQuestion(quizQuestionDisplay.QuestionId);
             this.EvaluateButtons(viewModel);
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            IQuizQuestion quizQuestion = viewModel.Quiz.Questions.ElementAt(--viewModel.QuestionIndex);
-            this.LoadQuizQuestion(quizQuestion);
-            this.LoadQuestion(quizQuestion.QuestionId);
+            QuizQuestionDisplay quizQuestionDisplay = quizQuestionsDisplay.ElementAt(--questionIndex);
+            this.LoadQuizQuestion(quizQuestionDisplay.Id);
+            this.LoadQuestion(quizQuestionDisplay.QuestionId);
             this.EvaluateButtons(viewModel);
         }
 
         private void EvaluateButtons(QuestionViewModel viewModel)
         {
-            viewModel.IsLastQuestion = viewModel.Quiz.Questions.Count() - 1 == viewModel.QuestionIndex;
-            viewModel.IsFirstQuestion = viewModel.QuestionIndex == 0;
+            viewModel.IsLastQuestion = quizQuestionsDisplay.Count() - 1 == questionIndex;
+            viewModel.IsFirstQuestion = questionIndex == 0;
         }
     }
 }

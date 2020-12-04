@@ -11,44 +11,44 @@ using FblaQuizzerBusiness.Models;
 namespace FblaQuizzerBusiness.Data
 {
     public static class QuestionData
-    {
-        public static IEnumerable<QuizQuestion> GetAll(Guid id)
+    {   
+        public static IQuestion GetQuestion(Guid id)
         {
-            List<QuizQuestion> questions = new List<QuizQuestion>();
-            string connectionString = ConfigurationManager.ConnectionStrings["QuizDbConnection"].ConnectionString;
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using(DbConnection cn = Utils.GetConnection())
             {
                 cn.Open();
-                DbCommand command = cn.CreateCommand();
-                command.CommandText = "Select QQ.Id, Text, QuestionType, Topic, Correct, QuestionNumber, QuestionId from QuizQuestion QQ Join Question Q on QQ.QuestionId = Q.Id where QQ.QuizId = @id order by QuestionNumber";
-
-                DbParameter idParameter = command.CreateParameter();
-                idParameter.ParameterName = "@id";
-                idParameter.DbType = System.Data.DbType.Guid;
-                idParameter.Value = id;
-                command.Parameters.Add(idParameter);
-
-                DbDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                using (DbCommand command = cn.CreateCommand())
                 {
-                    QuizQuestion question = new QuizQuestion();
-                    question.Id = reader.GetGuid(0);
-                    question.Text = reader.GetString(1);
-                    byte test = reader.GetByte(2);
-                    question.QuestionType = (QuestionType) reader.GetByte(2);
-                    question.Topic = reader.GetString(3);
-                    if (reader.IsDBNull(4))
-                        question.Correct = null;
-                    else
-                        question.Correct = reader.GetBoolean(4);
-                    question.QuestionNumber = reader.GetByte(5);
-                    question.QuestionId = reader.GetGuid(6);
-                    questions.Add(question);
+                    command.CommandText = "Select QuestionType from Question where @id = id";
+
+                    DbParameter idParameter = command.CreateParameter();
+                    idParameter.ParameterName = "@id";
+                    idParameter.DbType = System.Data.DbType.Guid;
+                    idParameter.Value = id;
+                    command.Parameters.Add(idParameter);
+
+                    QuestionType questionType = (QuestionType) Convert.ToByte(command.ExecuteScalar());
+                    switch (questionType)
+                    {
+                        case QuestionType.TrueFalse:
+                            return GetTrueFalseQuestion(cn, id);
+
+                        case QuestionType.MultipleChoice:
+                            return GetMultipleChoiceQuestion(cn, id);
+
+                        case QuestionType.Text:
+                            return GetTextQuestion(cn, id);
+
+                        case QuestionType.Matching:
+                            return GetMatchingQuestion(cn, id);
+
+                        default:
+                            throw new InvalidQuestionTypeException();
+                    }
                 }
             }
-
-            return questions;
         }
+
         public static MultipleChoiceQuestion GetMultipleChoiceQuestion(Guid id)
         {
             MultipleChoiceQuestion question = new MultipleChoiceQuestion();
@@ -94,43 +94,6 @@ namespace FblaQuizzerBusiness.Data
                 question.Options = options;
 
                 return question;
-            }
-        }
-        
-        public static IQuestion GetQuestion(Guid id)
-        {
-            using(DbConnection cn = Utils.GetConnection())
-            {
-                cn.Open();
-                using (DbCommand command = cn.CreateCommand())
-                {
-                    command.CommandText = "Select QuestionType from Question where @id = id";
-
-                    DbParameter idParameter = command.CreateParameter();
-                    idParameter.ParameterName = "@id";
-                    idParameter.DbType = System.Data.DbType.Guid;
-                    idParameter.Value = id;
-                    command.Parameters.Add(idParameter);
-
-                    QuestionType questionType = (QuestionType) Convert.ToByte(command.ExecuteScalar());
-                    switch (questionType)
-                    {
-                        case QuestionType.TrueFalse:
-                            return GetTrueFalseQuestion(cn, id);
-
-                        case QuestionType.MultipleChoice:
-                            return GetMultipleChoiceQuestion(cn, id);
-
-                        case QuestionType.Text:
-                            return GetTextQuestion(cn, id);
-
-                        case QuestionType.Matching:
-                            return GetMatchingQuestion(cn, id);
-
-                        default:
-                            throw new InvalidQuestionTypeException();
-                    }
-                }
             }
         }
 
@@ -264,7 +227,7 @@ namespace FblaQuizzerBusiness.Data
                     question.QuestionType = (QuestionType)reader.GetByte(3);
                 }
 
-                command.CommandText = "Select Id, PromptText from MatchingAnswerPrompt where @id = QuestionId";
+                command.CommandText = "Select Id, PromptText from MatchingAnswerPrompt where @id = QuestionId order by [Order]";
 
                 using (DbDataReader reader = command.ExecuteReader())
                 {
@@ -311,5 +274,7 @@ namespace FblaQuizzerBusiness.Data
 
             return question;
         }
+
+
     }
 }

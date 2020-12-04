@@ -4,8 +4,8 @@ using System.Text;
 
 namespace FblaQuizzerBusiness.Models
 {
-    public class TrueOrFalseQuizQuestion: QuizQuestion
+    public class TrueFalseQuizQuestion: QuizQuestion
     {
-        public bool Answer { get; set; }
+        public bool? Answer { get; set; }
     }
 }

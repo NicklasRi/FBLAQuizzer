@@ -10,10 +10,8 @@ namespace FblaQuizzerBusiness.Models
         public Guid Id { get; set; }
         public Guid QuizId { get; set; }
         public Guid QuestionId { get; set; }
-        public string Text { get; set; }
-        public QuestionType QuestionType { get; set; }
-        public string Topic { get; set; }
         public bool? Correct { get; set; }
         public byte QuestionNumber { get; set; }
+        public QuestionType QuestionType { get; set; }
     }
 }

@@ -5,24 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FblaQuizzerWpf.Controls"
              xmlns:converters="clr-namespace:FblaQuizzerWpf.Converters"
+             xmlns:customControls="clr-namespace:FblaQuizzerWpf.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="root">
 
     <Control.Resources>
-        <converters:MultipleChoiceOptionConverter x:Key="optionConverter"/>
+        <converters:MultipleChoiceToBooleanConverter x:Key="multipleChoiceToBooleanConvert" />
     </Control.Resources>
-    
     <Grid>
-        <ItemsControl ItemsSource="{Binding Options, ElementName=root}">
+        <ItemsControl ItemsSource="{Binding ElementName=root, Path=Options}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <RadioButton Content="{Binding ., Converter={StaticResource optionConverter}}"></RadioButton>
+                        <customControls:MultipleChoiceRadioButton GroupName="OptionGroup" MultipleChoiceOption="{Binding Id}" RadioBinding="{Binding Answer}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Letter}"></TextBlock>
+                                <TextBlock Grid.Column="1" Text="{Binding Text}"></TextBlock>
+                            </Grid>
+                        </customControls:MultipleChoiceRadioButton>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate> 

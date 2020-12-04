@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:FblaQuizzerWpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Setters>
+                <Setter Property="Padding">
+                    <Setter.Value>4</Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
     </Application.Resources>
 </Application>

@@ -8,15 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="root">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
             <RadioButton x:Name="TrueButton" Content="True" Margin="8" GroupName="TrueFalseGroup"/>
             <RadioButton x:Name="FalseButton"  Content="False" Margin="8" GroupName="TrueFalseGroup"></RadioButton>
         </StackPanel>
-
     </Grid>
 </UserControl>

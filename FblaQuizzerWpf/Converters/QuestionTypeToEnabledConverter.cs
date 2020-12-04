@@ -9,12 +9,13 @@ using FblaQuizzerBusiness.Models;
 
 namespace FblaQuizzerWpf.Converters
 {
-    public class MultipleChoiceOptionConverter : IValueConverter
+    public class QuestionTypeToEnabledConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            MultipleChoiceOption option = (MultipleChoiceOption)value;
-            return option.Letter + ". " + option.Text;
+            QuestionType questionTypeNeeded = (QuestionType)parameter;
+            QuestionType questionTypeGiven = (QuestionType)value;
+            return questionTypeGiven == questionTypeNeeded ? true : false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

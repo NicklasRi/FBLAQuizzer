@@ -16,8 +16,9 @@
         <converters:BooleanToVisibleConverter x:Key="boolToVisibleConvert"/>
         <converters:InvertBoolToVisibleConverter x:Key="invertBoolToVisibleConvert"/>
         <converters:QuestionTypeToVisibleConverter x:Key="questionTypeToVisibleConvert"/>
+        <converters:QuestionTypeToEnabledConverter x:Key="questionTypeToEnabledConvert"/>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -25,11 +26,13 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label x:Name="NumberLabel" FontSize="16" FontWeight="Bold"></Label>
-        <Label x:Name="TopicLabel" Grid.Row="1"></Label>
+        <Label x:Name="NumberLabel" FontSize="20" FontWeight="Bold"></Label>
+        <Label x:Name="TopicLabel" Grid.Row="1" FontSize="16"></Label>
         <Label x:Name= "TextLabel" Grid.Row="2"></Label>
-        <controls:TrueOrFalseQuestionControl Grid.Row="3" Answer="{Binding Question.Answer}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.TrueFalse}}"></controls:TrueOrFalseQuestionControl>
-        <controls:MultipleChoiceQuestionControl Grid.Row="3" Options="{Binding Options}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.MultipleChoice}}"></controls:MultipleChoiceQuestionControl>
+        <controls:TrueOrFalseQuestionControl Grid.Row="3" Answer="{Binding Question.Answer}" IsEnabled="{Binding Question.QuestionType, Converter={StaticResource questionTypeToEnabledConvert}, ConverterParameter={x:Static business:QuestionType.TrueFalse}}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.TrueFalse}}"></controls:TrueOrFalseQuestionControl>
+        <controls:MultipleChoiceQuestionControl Grid.Row="3" Answer="{Binding Question.Answer}" Options="{Binding MultipleChoiceOptions}" IsEnabled="{Binding Question.QuestionType, Converter={StaticResource questionTypeToEnabledConvert}, ConverterParameter={x:Static business:QuestionType.MultipleChoice}}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.MultipleChoice}}"></controls:MultipleChoiceQuestionControl>
+        <controls:TextQuestionControl Grid.Row="3" Answer="{Binding Question.Answer}" IsEnabled="{Binding Question.QuestionType, Converter={StaticResource questionTypeToEnabledConvert}, ConverterParameter={x:Static business:QuestionType.Text}}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.Text}}"></controls:TextQuestionControl>
+        <controls:MatchingQuestionControl Grid.Row="3" MatchingAnswers="{Binding MatchingAnswers}" IsEnabled="{Binding Question.QuestionType, Converter={StaticResource questionTypeToEnabledConvert}, ConverterParameter={x:Static business:QuestionType.Matching}}" Visibility="{Binding Question.QuestionType, Converter={StaticResource questionTypeToVisibleConvert}, ConverterParameter={x:Static business:QuestionType.Matching}}"></controls:MatchingQuestionControl>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

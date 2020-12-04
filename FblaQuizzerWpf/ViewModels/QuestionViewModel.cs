@@ -17,22 +17,8 @@ namespace FblaQuizzerWpf.ViewModels
 
         public Quiz Quiz { get; }
 
-        private int questionIndex;
-        public int QuestionIndex
-        {
-            get
-            {
-                return questionIndex;
-            }
-
-            set
-            {
-                questionIndex = value;
-                OnPropertyChanged(nameof(QuestionIndex));
-            }
-        }
-
         private IQuestion question;
+
         public IQuestion Question
         {
             get
@@ -47,7 +33,24 @@ namespace FblaQuizzerWpf.ViewModels
             }
         }
 
+        private IQuizQuestion quizQuestion;
+
+        public IQuizQuestion QuizQuestion
+        {
+            get
+            {
+                return quizQuestion;
+            }
+
+            set
+            {
+                quizQuestion = value;
+                OnPropertyChanged(nameof(QuizQuestion));
+            }
+        }
+
         private bool isFirstQuestion = true;
+
         public bool IsFirstQuestion
         {
             get
@@ -77,19 +80,36 @@ namespace FblaQuizzerWpf.ViewModels
 
         
 
-        private IEnumerable<MultipleChoiceOption> options;
-        public IEnumerable<MultipleChoiceOption> Options
+        private IEnumerable<MultipleChoiceOption> multipleChoiceOptions;
+
+        public IEnumerable<MultipleChoiceOption> MultipleChoiceOptions
         {
             
             get
             {
-                return options;
+                return multipleChoiceOptions;
             }
 
             set
             {
-                options = value;
-                OnPropertyChanged("Options");
+                multipleChoiceOptions = value;
+                OnPropertyChanged(nameof(MultipleChoiceOptions));
+            }
+        }
+
+        private IEnumerable<MatchingAnswerDisplay> matchingAnswers;
+
+        public IEnumerable<MatchingAnswerDisplay> MatchingAnswers
+        {
+            get
+            {
+                return matchingAnswers;
+            }
+
+            set
+            {
+                matchingAnswers = value;
+                OnPropertyChanged(nameof(MatchingAnswers));
             }
         }
     }
