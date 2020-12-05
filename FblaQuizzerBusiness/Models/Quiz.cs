@@ -8,7 +8,6 @@ namespace FblaQuizzerBusiness.Models
 {
     public class Quiz
     {
-        private IEnumerable<QuizQuestion> questions = null;
         private Quiz() { }
 
         private Quiz(Guid id, string name)

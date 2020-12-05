@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FblaQuizzerBusiness.Models
 {
-    public class QuizQuestionDisplay
+    public class QuizQuestionKey
     {
         public Guid Id { get; set; }
 

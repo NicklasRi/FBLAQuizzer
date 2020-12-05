@@ -28,14 +28,14 @@ namespace FblaQuizzerWpf.Controls
         }
 
         public static readonly DependencyProperty MatchingAnswersProperty = DependencyProperty
-            .Register("MatchingAnswers", typeof(IEnumerable<MatchingAnswerPrompt>), 
+            .Register("MatchingAnswers", typeof(IEnumerable<MatchingAnswerDisplay>), 
             typeof(MatchingQuestionControl), new PropertyMetadata(null));
 
-        public IEnumerable<MatchingAnswerPrompt> MatchingAnswers
+        public IEnumerable<MatchingAnswerDisplay> MatchingAnswers
         {
             get
             {
-                return (IEnumerable<MatchingAnswerPrompt>)this.GetValue(MatchingAnswersProperty);
+                return (IEnumerable<MatchingAnswerDisplay>)this.GetValue(MatchingAnswersProperty);
             }
 
             set

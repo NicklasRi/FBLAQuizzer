@@ -24,7 +24,7 @@ namespace FblaQuizzerWpf.Pages
     /// </summary>
     public partial class QuestionPage : Page
     {
-        private IEnumerable<QuizQuestionDisplay> quizQuestionsDisplay = null;
+        private IEnumerable<QuizQuestionKey> quizQuestionsDisplay = null;
         private int questionIndex = 0;
 
         public QuestionPage(QuestionViewModel viewModel)
@@ -33,9 +33,9 @@ namespace FblaQuizzerWpf.Pages
 
             this.DataContext = viewModel;
 
-            quizQuestionsDisplay = QuizQuestionData.GetQuizQuestionsDisplay(viewModel.Quiz.Id);
+            quizQuestionsDisplay = QuizQuestionData.GetQuizQuestionKeys(viewModel.Quiz.Id);
 
-            QuizQuestionDisplay firstQuizQuestion = quizQuestionsDisplay.First();
+            QuizQuestionKey firstQuizQuestion = quizQuestionsDisplay.First();
 
             this.LoadQuizQuestion(firstQuizQuestion.Id);
 
@@ -78,23 +78,28 @@ namespace FblaQuizzerWpf.Pages
        
             MatchingQuizQuestion matchingQuizQuestion = (MatchingQuizQuestion)questionViewModel.QuizQuestion;
             
-            if(matchingQuizQuestion.MatchingAnswers == null)
+            if(matchingQuizQuestion.MatchingAnswers.Count() == 0)
             {
-                List<MatchingAnswerDisplay> matchingAnswers = new List<MatchingAnswerDisplay>();
+                List<MatchingAnswer> matchingAnswers = new List<MatchingAnswer>();
 
                 for (int i = 0; i < matchingQuestion.Prompts.Count(); i++)
                 {
                     MatchingAnswer matchingAnswer = new MatchingAnswer();
-                    matchingAnswer.Id = Guid.NewGuid();
                     matchingAnswer.MatchingAnswerOptionId = matchingQuestion.Options.ElementAt(i).Id;
                     matchingAnswer.MatchingAnswerPromptId = matchingQuestion.Prompts.ElementAt(i).Id;
+                    
+                    matchingAnswers.Add(matchingAnswer);
                 }
+                matchingQuizQuestion.MatchingAnswers = matchingAnswers;
+                QuizQuestionData.SaveQuizQuestion(matchingQuizQuestion);
             }
+
+            questionViewModel.MatchingAnswers = QuizQuestionData.GetMatchingAnswersDisplay(matchingQuizQuestion.Id);
         }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            QuizQuestionDisplay quizQuestionDisplay = quizQuestionsDisplay.ElementAt(++questionIndex);
+            QuizQuestionKey quizQuestionDisplay = quizQuestionsDisplay.ElementAt(++questionIndex);
             this.LoadQuizQuestion(quizQuestionDisplay.Id);
             this.LoadQuestion(quizQuestionDisplay.QuestionId);
             this.EvaluateButtons(viewModel);
@@ -103,7 +108,7 @@ namespace FblaQuizzerWpf.Pages
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            QuizQuestionDisplay quizQuestionDisplay = quizQuestionsDisplay.ElementAt(--questionIndex);
+            QuizQuestionKey quizQuestionDisplay = quizQuestionsDisplay.ElementAt(--questionIndex);
             this.LoadQuizQuestion(quizQuestionDisplay.Id);
             this.LoadQuestion(quizQuestionDisplay.QuestionId);
             this.EvaluateButtons(viewModel);
