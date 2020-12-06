@@ -88,16 +88,19 @@ namespace FblaQuizzerBusiness.Data
                 parameter.Value = question.QuizId;
                 command.Parameters.Add(parameter);
 
-                if (!command.ExecuteReader().HasRows)
-                { 
-                    command.CommandText = "INSERT INTO MultipleChoiceAnswer VALUES(@quizQuestionId, @answer, @quizId)";
-                }
+                using (DbDataReader reader = command.ExecuteReader()) {
+                    if (!reader.HasRows)
+                    {
+                        command.CommandText = "INSERT INTO MultipleChoiceAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                    }
 
-                else
-                {
-                    command.CommandText = "UPDATE MultipleChoiceAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";                
-                }
+                    else
+                    {
+                        command.CommandText = "UPDATE MultipleChoiceAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                    }
 
+
+                }
                 command.ExecuteNonQuery();
             }
         }
@@ -127,14 +130,16 @@ namespace FblaQuizzerBusiness.Data
                 parameter.Value = question.QuizId;
                 command.Parameters.Add(parameter);
 
-                if (!command.ExecuteReader().HasRows)
-                {
-                    command.CommandText = "INSERT INTO TextAnswer VALUES(@quizQuestionId, @answer, @quizId)";
-                }
+                using (DbDataReader reader = command.ExecuteReader()) {
+                    if (!reader.HasRows)
+                    {
+                        command.CommandText = "INSERT INTO TextAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                    }
 
-                else
-                {
-                    command.CommandText = "UPDATE TextAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                    else
+                    {
+                        command.CommandText = "UPDATE TextAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                    }
                 }
 
                 command.ExecuteNonQuery();
@@ -165,14 +170,16 @@ namespace FblaQuizzerBusiness.Data
                 parameter.Value = question.QuizId;
                 command.Parameters.Add(parameter);
 
-                if (!command.ExecuteReader().HasRows)
-                {
-                    command.CommandText = "INSERT INTO TrueFalseAnswer VALUES(@quizQuestionId, @answer, @quizId)";
-                }
+                using (DbDataReader reader = command.ExecuteReader()) {
+                    if (!reader.HasRows)
+                    {
+                        command.CommandText = "INSERT INTO TrueFalseAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                    }
 
-                else
-                {
-                    command.CommandText = "UPDATE TrueFalseAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                    else
+                    {
+                        command.CommandText = "UPDATE TrueFalseAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                    }
                 }
 
                 command.ExecuteNonQuery();
@@ -232,7 +239,7 @@ namespace FblaQuizzerBusiness.Data
 
                         else
                         {
-                            command.CommandText = "UPDATE MatchingAnswer SET MatchingAnswerOptionId = @promptId, MatchingAnswerOptionId = @optionId WHERE QuizQuestionId = @quizQuestionId";
+                            command.CommandText = "UPDATE MatchingAnswer SET MatchingAnswerOptionId = @optionId WHERE QuizQuestionId = @quizQuestionId AND MatchingAnswerPromptId = @promptId";
 
                             DbParameter promptParameter = command.CreateParameter();
                             promptParameter.ParameterName = "@promptId";
@@ -311,7 +318,8 @@ namespace FblaQuizzerBusiness.Data
                 command.CommandText = @"SELECT MatchingAnswerPromptId, PromptText, MatchingAnswerOptionId, OptionText FROM MatchingAnswer MA 
                 JOIN MatchingAnswerPrompt MP ON MA.MatchingAnswerPromptId = MP.Id
                 JOIN MatchingAnswerOption MO ON MA.MatchingAnswerOptionId = MO.Id
-                WHERE MA.QuizQuestionId = @id";
+                WHERE MA.QuizQuestionId = @id 
+                ORDER BY [Order]";
 
                 DbParameter idParameter = command.CreateParameter();
                 idParameter.ParameterName = "@id";

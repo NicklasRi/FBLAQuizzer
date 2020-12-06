@@ -12,14 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FblaQuizzerBusiness.Data;
 using FblaQuizzerBusiness.Models;
+using FblaQuizzerWpf.CustomControls;
 
 namespace FblaQuizzerWpf.Controls
 {
     /// <summary>
     /// Interaction logic for MultipleChoiceQuestionControl.xaml
     /// </summary>
-    public partial class MultipleChoiceQuestionControl : UserControl
+    public partial class MultipleChoiceQuestionControl : QuestionControl
     {
         public MultipleChoiceQuestionControl()
         {
@@ -60,6 +62,15 @@ namespace FblaQuizzerWpf.Controls
             {
                 this.SetValue(AnswerProperty, value);
             }
+        }
+
+        private void MultipleChoiceRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MultipleChoiceRadioButton radioButton = (MultipleChoiceRadioButton)e.Source;
+            MultipleChoiceOption answer = (MultipleChoiceOption)radioButton.DataContext;
+            ((MultipleChoiceQuizQuestion)this.QuizQuestion).Answer = answer.Id;
+
+            QuizQuestionData.SaveQuizQuestion(this.QuizQuestion);
         }
     }
 }

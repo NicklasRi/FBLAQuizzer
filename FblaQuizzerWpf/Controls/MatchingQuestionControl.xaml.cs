@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FblaQuizzerBusiness.Data;
+using FblaQuizzerBusiness.Interfaces;
 using FblaQuizzerBusiness.Models;
 using FblaQuizzerWpf.ViewModels;
 
@@ -20,7 +22,7 @@ namespace FblaQuizzerWpf.Controls
     /// <summary>
     /// Interaction logic for MatchingQuestionControl.xaml
     /// </summary>
-    public partial class MatchingQuestionControl : UserControl
+    public partial class MatchingQuestionControl : QuestionControl
     {
         public MatchingQuestionControl()
         {
@@ -53,11 +55,10 @@ namespace FblaQuizzerWpf.Controls
                 Label optionLabel = e.Source as Label;
                 if(optionLabel != null) 
                 {
-                    MatchingAnswerOption option = (MatchingAnswerOption)optionLabel.DataContext;
-                    data.SetData("OptionItem", option);
+                    MatchingAnswerDisplay matchingAnswer = (MatchingAnswerDisplay)optionLabel.DataContext;
+                    data.SetData("MatchingAnswerItem", matchingAnswer);
                     DragDrop.DoDragDrop(panel, data, DragDropEffects.Copy | DragDropEffects.Move);
-                }
-                
+                }   
             }
         }
 
@@ -66,8 +67,20 @@ namespace FblaQuizzerWpf.Controls
             FrameworkElement controlTarget = e.OriginalSource as FrameworkElement;
             if(controlTarget != null)
             {
-                MatchingAnswerOption targetOption = (MatchingAnswerOption)controlTarget.DataContext;
-                MatchingAnswerOption sourceOption = (MatchingAnswerOption)e.Data.GetData("OptionItem");
+                MatchingAnswerDisplay target = (MatchingAnswerDisplay)controlTarget.DataContext;
+                MatchingAnswerDisplay source = (MatchingAnswerDisplay)e.Data.GetData("MatchingAnswerItem");
+
+                IEnumerable<MatchingAnswer> matchingAnswers = ((MatchingQuizQuestion)this.QuizQuestion).MatchingAnswers;
+                MatchingAnswer answerTarget = matchingAnswers.First(x => x.MatchingAnswerOptionId == target.MatchingAnswerOptionId);
+                MatchingAnswer answerSource = matchingAnswers.First(x => x.MatchingAnswerOptionId == source.MatchingAnswerOptionId);
+
+                Guid targetId = answerTarget.MatchingAnswerOptionId;
+
+                answerTarget.MatchingAnswerOptionId = answerSource.MatchingAnswerOptionId;
+                answerSource.MatchingAnswerOptionId = targetId;
+                QuizQuestionData.SaveQuizQuestion(this.QuizQuestion);
+
+                this.MatchingAnswers = QuizQuestionData.GetMatchingAnswersDisplay(this.QuizQuestion.Id);
             }
             
         }

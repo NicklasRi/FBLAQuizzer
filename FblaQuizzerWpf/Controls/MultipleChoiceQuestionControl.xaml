@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FblaQuizzerWpf.Controls.MultipleChoiceQuestionControl"
+﻿<local:QuestionControl x:Class="FblaQuizzerWpf.Controls.MultipleChoiceQuestionControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -22,7 +22,7 @@
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <customControls:MultipleChoiceRadioButton GroupName="OptionGroup" MultipleChoiceOption="{Binding Id}" RadioBinding="{Binding Answer}">
+                        <customControls:MultipleChoiceRadioButton GroupName="OptionGroup" MultipleChoiceOption="{Binding Id}" RadioBinding="{Binding Answer, ElementName=root}" Click="MultipleChoiceRadioButton_Click">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="25"></ColumnDefinition>
@@ -38,4 +38,4 @@
             
         </ItemsControl>     
     </Grid>
-</UserControl>
+</local:QuestionControl>

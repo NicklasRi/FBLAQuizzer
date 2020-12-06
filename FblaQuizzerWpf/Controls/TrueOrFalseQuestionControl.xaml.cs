@@ -18,7 +18,7 @@ namespace FblaQuizzerWpf.Controls
     /// <summary>
     /// Interaction logic for TrueOrFalseQuestionControl.xaml
     /// </summary>
-    public partial class TrueOrFalseQuestionControl : UserControl
+    public partial class TrueOrFalseQuestionControl : QuestionControl
     {
         public TrueOrFalseQuestionControl()
         {

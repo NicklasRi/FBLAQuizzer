@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FblaQuizzerWpf.Controls.TrueOrFalseQuestionControl"
+﻿<local:QuestionControl x:Class="FblaQuizzerWpf.Controls.TrueOrFalseQuestionControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,4 +13,4 @@
             <RadioButton x:Name="FalseButton"  Content="False" Margin="8" GroupName="TrueFalseGroup"></RadioButton>
         </StackPanel>
     </Grid>
-</UserControl>
+</local:QuestionControl>

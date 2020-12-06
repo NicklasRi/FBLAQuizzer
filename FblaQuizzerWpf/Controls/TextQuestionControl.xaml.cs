@@ -18,7 +18,7 @@ namespace FblaQuizzerWpf.Controls
     /// <summary>
     /// Interaction logic for TextQuestionControl.xaml
     /// </summary>
-    public partial class TextQuestionControl : UserControl
+    public partial class TextQuestionControl : QuestionControl
     {
         public TextQuestionControl()
         {

@@ -105,6 +105,7 @@
     <Compile Include="Controls\MultipleChoiceQuestionControl.xaml.cs">
       <DependentUpon>MultipleChoiceQuestionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\QuestionControl.cs" />
     <Compile Include="Controls\TextQuestionControl.xaml.cs">
       <DependentUpon>TextQuestionControl.xaml</DependentUpon>
     </Compile>
