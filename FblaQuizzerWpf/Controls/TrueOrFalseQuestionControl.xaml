@@ -4,13 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FblaQuizzerWpf.Controls"
+             xmlns:converters="clr-namespace:FblaQuizzerWpf.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="root">
+    <UserControl.Resources>
+        <converters:BoolRadioConverter x:Key="boolRadioConvert"></converters:BoolRadioConverter>
+        <converters:BoolRadioConverter x:Key="boolInvertRadioConvert" Inverse="True"></converters:BoolRadioConverter>
+    </UserControl.Resources>
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-            <RadioButton x:Name="TrueButton" Content="True" Margin="8" GroupName="TrueFalseGroup"/>
-            <RadioButton x:Name="FalseButton"  Content="False" Margin="8" GroupName="TrueFalseGroup"></RadioButton>
+            <RadioButton x:Name="TrueButton" Content="True" IsChecked="{Binding QuizQuestion.Answer, Converter={StaticResource boolRadioConvert}}" Margin="8" Click="TrueButton_Click"/>
+            <RadioButton x:Name="FalseButton"  Content="False" Margin="8" IsChecked="{Binding QuizQuestion.Answer, Converter={StaticResource boolInvertRadioConvert}}" Click="FalseButton_Click"></RadioButton>
         </StackPanel>
     </Grid>
 </local:QuestionControl>

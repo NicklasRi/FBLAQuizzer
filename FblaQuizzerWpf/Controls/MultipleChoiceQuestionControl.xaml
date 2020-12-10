@@ -14,6 +14,9 @@
         <converters:MultipleChoiceToBooleanConverter x:Key="multipleChoiceToBooleanConvert" />
     </Control.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <ItemsControl ItemsSource="{Binding ElementName=root, Path=Options}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -22,7 +25,7 @@
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <customControls:MultipleChoiceRadioButton GroupName="OptionGroup" MultipleChoiceOption="{Binding Id}" RadioBinding="{Binding Answer, ElementName=root}" Click="MultipleChoiceRadioButton_Click">
+                        <customControls:MultipleChoiceRadioButton GroupName="OptionGroup" MultipleChoiceOption="{Binding Id}" RadioBinding="{Binding Path=QuizQuestion.Answer, ElementName=root}" Click="MultipleChoiceRadioButton_Click">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="25"></ColumnDefinition>
@@ -34,8 +37,7 @@
                         </customControls:MultipleChoiceRadioButton>
                     </Grid>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate> 
-            
-        </ItemsControl>     
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </local:QuestionControl>

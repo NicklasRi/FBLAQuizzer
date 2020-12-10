@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FblaQuizzerBusiness.Data;
+using FblaQuizzerWpf.ViewModels;
 
 namespace FblaQuizzerWpf.Controls
 {
@@ -27,19 +29,31 @@ namespace FblaQuizzerWpf.Controls
 
         public static readonly DependencyProperty AnswerProperty = 
             DependencyProperty.Register
-            ("Answer", typeof(bool),typeof(TrueOrFalseQuestionControl), new PropertyMetadata(null));
+            ("Answer", typeof(bool?),typeof(TrueOrFalseQuestionControl), new PropertyMetadata(null));
 
-        public bool Answer
+        public bool? Answer
         {
             get
             {
-                return (bool)this.GetValue(AnswerProperty);
+                return (bool?)this.GetValue(AnswerProperty);
             }
 
             set
             {
                 this.SetValue(AnswerProperty, value);
             }
+        }
+
+        private void TrueButton_Click(object sender, RoutedEventArgs e)
+        {
+            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+            QuizQuestionData.SaveQuizQuestion(viewModel.QuizQuestion);
+        }
+
+        private void FalseButton_Click(object sender, RoutedEventArgs e)
+        {
+            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+            QuizQuestionData.SaveQuizQuestion(viewModel.QuizQuestion);
         }
     }
 }

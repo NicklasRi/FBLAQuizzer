@@ -112,5 +112,69 @@ namespace FblaQuizzerWpf.ViewModels
                 OnPropertyChanged(nameof(MatchingAnswers));
             }
         }
+
+        private bool isMultipleChoiceQuestion;
+
+        public bool IsMultipleChoiceQuestion
+        {
+            get
+            {
+                return isMultipleChoiceQuestion;
+            }
+
+            set
+            {
+                isMultipleChoiceQuestion = value;
+                OnPropertyChanged(nameof(IsMultipleChoiceQuestion));
+            }
+        }
+
+        private bool isTrueFalseQuestion;
+
+        public bool IsTrueFalseQuestion
+        {
+            get
+            {
+                return isTrueFalseQuestion;
+            }
+
+            set
+            {
+                isTrueFalseQuestion = value;
+                OnPropertyChanged(nameof(IsTrueFalseQuestion));
+            }
+        }
+
+        private bool isTextQuestion;
+
+        public bool IsTextQuestion
+        {
+            get
+            {
+                return isTextQuestion;
+            }
+
+            set
+            {
+                isTextQuestion = value;
+                OnPropertyChanged(nameof(IsTextQuestion));
+            }
+        }
+
+        private bool isMatchingQuestion;
+
+        public bool IsMatchingQuestion
+        {
+            get
+            {
+                return isMatchingQuestion;
+            }
+
+            set
+            {
+                isMatchingQuestion = value;
+                OnPropertyChanged(nameof(IsMatchingQuestion));
+            }
+        }
     }
 }

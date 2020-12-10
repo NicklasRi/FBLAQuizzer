@@ -37,9 +37,8 @@ namespace FblaQuizzerWpf.Pages
 
             QuizQuestionKey firstQuizQuestion = quizQuestionsDisplay.First();
 
-            this.LoadQuizQuestion(firstQuizQuestion.Id);
-
             this.LoadQuestion(firstQuizQuestion.QuestionId);
+            this.LoadQuizQuestion(firstQuizQuestion.Id);
         }
 
         private void LoadQuestion(Guid id)
@@ -49,6 +48,10 @@ namespace FblaQuizzerWpf.Pages
             this.TextLabel.Content = question.Text;
 
             QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
+            questionViewModel.IsMultipleChoiceQuestion = question.QuestionType == QuestionType.MultipleChoice;
+            questionViewModel.IsTrueFalseQuestion = question.QuestionType == QuestionType.TrueFalse;
+            questionViewModel.IsTextQuestion = question.QuestionType == QuestionType.Text;
+            questionViewModel.IsMatchingQuestion = question.QuestionType == QuestionType.Matching;
             questionViewModel.Question = question;
 
             MultipleChoiceQuestion multipleChoiceQuestion = question as MultipleChoiceQuestion;

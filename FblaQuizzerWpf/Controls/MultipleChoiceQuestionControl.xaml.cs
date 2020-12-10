@@ -47,15 +47,32 @@ namespace FblaQuizzerWpf.Controls
             }
         }
 
-        public static readonly DependencyProperty AnswerProperty =
+        public static DependencyProperty TestProperty =
             DependencyProperty.Register
-            ("Answer", typeof(Guid), typeof(MultipleChoiceQuestionControl), new PropertyMetadata(null));
-        
-        public Guid Answer
+            ("Test", typeof(Guid?), typeof(MultipleChoiceQuestionControl));
+
+        public Guid? Test
         {
             get
             {
-                return (Guid)this.GetValue(AnswerProperty);
+                return (Guid)this.GetValue(TestProperty);
+            }
+
+            set
+            {
+                this.SetValue(TestProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty AnswerProperty =
+            DependencyProperty.Register
+            ("Answer", typeof(Guid?), typeof(MultipleChoiceQuestionControl), new PropertyMetadata(null));
+        
+        public Guid? Answer
+        {
+            get
+            {
+                return (Guid?)this.GetValue(AnswerProperty);
             }
 
             set

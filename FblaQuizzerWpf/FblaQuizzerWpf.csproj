@@ -113,6 +113,7 @@
       <DependentUpon>TrueOrFalseQuestionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibleConverter.cs" />
+    <Compile Include="Converters\BoolRadioConverter.cs" />
     <Compile Include="Converters\MultipleChoiceToBooleanConverter.cs" />
     <Compile Include="Converters\QuestionTypeToEnabledConverter.cs" />
     <Compile Include="Converters\QuestionTypeToVisibleConverter.cs" />

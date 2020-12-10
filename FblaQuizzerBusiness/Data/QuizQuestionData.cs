@@ -440,7 +440,7 @@ namespace FblaQuizzerBusiness.Data
             {
                 command.CommandText = @"SELECT QQ.Id, QQ.QuizId, QQ.QuestionId, Correct, QuestionNumber, Answer, QuestionType
                 FROM QuizQuestion QQ 
-                LEFT JOIN MultipleChoiceAnswer MCA ON QQ.Id = MCA.QuizQuestionId 
+                LEFT JOIN TrueFalseAnswer TFA ON QQ.Id = TFA.QuizQuestionId 
                 JOIN Question Q ON QQ.QuestionId = Q.Id
                 WHERE QQ.Id = @id";
 
@@ -485,9 +485,9 @@ namespace FblaQuizzerBusiness.Data
 
             using (DbCommand command = cn.CreateCommand())
             {
-                command.CommandText = @"SELECT QQ.Id, QQ.QuizId, QQ.QuestionId, Correct, QuestionNumber, Answer, QuestionType
+                command.CommandText = @"SELECT QQ.Id, QQ.QuizId, QQ.QuestionId, Correct, QuestionNumber, AnswerText, QuestionType
                 FROM QuizQuestion QQ   
-                LEFT JOIN MultipleChoiceAnswer MCA ON QQ.Id = MCA.QuizQuestionId 
+                LEFT JOIN TextAnswer TA ON QQ.Id = TA.QuizQuestionId 
                 JOIN Question Q ON QQ.QuestionId = Q.Id
                 WHERE QQ.Id = @id";
 
