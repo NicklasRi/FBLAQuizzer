@@ -15,8 +15,6 @@
         <converters:InvertBooleanConverter  x:Key="boolConvert"/>
         <converters:BooleanToVisibleConverter x:Key="boolToVisibleConvert"/>
         <converters:InvertBoolToVisibleConverter x:Key="invertBoolToVisibleConvert"/>
-        <converters:QuestionTypeToVisibleConverter x:Key="questionTypeToVisibleConvert"/>
-        <converters:QuestionTypeToEnabledConverter x:Key="questionTypeToEnabledConvert"/>
     </Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -26,13 +24,13 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label x:Name="NumberLabel" FontSize="20" FontWeight="Bold"></Label>
-        <Label x:Name="TopicLabel" Grid.Row="1" FontSize="16"></Label>
-        <Label x:Name= "TextLabel" Grid.Row="2"></Label>
+        <TextBlock Margin="4" x:Name="NumberLabel" FontSize="20" FontWeight="Bold" TextWrapping="Wrap"></TextBlock>
+        <TextBlock Margin="4" x:Name="TopicLabel" Grid.Row="1" FontSize="16" TextWrapping="Wrap"></TextBlock>
+        <TextBlock Margin="4" x:Name= "TextLabel" Grid.Row="2" TextWrapping="Wrap"></TextBlock>
         <ContentPresenter Grid.Row="3" Content="{Binding}">
             <ContentPresenter.Resources>
                 <DataTemplate x:Key="MultipleChoiceTemplate">
-                    <controls:MultipleChoiceQuestionControl Test="{Binding QuizQuestion.Answer}" Answer="{Binding QuizQuestion.Answer}" QuizQuestion="{Binding QuizQuestion}" Options="{Binding MultipleChoiceOptions}"></controls:MultipleChoiceQuestionControl>
+                    <controls:MultipleChoiceQuestionControl QuizQuestion="{Binding QuizQuestion}" Options="{Binding MultipleChoiceOptions}"></controls:MultipleChoiceQuestionControl>
                 </DataTemplate>
                 <DataTemplate x:Key="TrueFalseTemplate">
                     <controls:TrueOrFalseQuestionControl QuizQuestion="{Binding QuizQuestion}"></controls:TrueOrFalseQuestionControl>
@@ -70,7 +68,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="PreviousButton" Content="Previous" Width="100" HorizontalAlignment="Left" Margin="10" Click="PreviousButton_Click" IsEnabled="{Binding IsFirstQuestion, Converter={StaticResource boolConvert}}"></Button>
             <Button x:Name="NextButton" Content="Next" Width="100" HorizontalAlignment="Right" Grid.Column="1" Margin="10" Click="NextButton_Click" Visibility="{Binding IsLastQuestion, Converter={StaticResource invertBoolToVisibleConvert}}"></Button>
-            <Button x:Name="FinishButton" Content="Finish" Width="100" HorizontalAlignment="Right" Grid.Column="1" Margin="10" Visibility="{Binding IsLastQuestion, Converter={StaticResource boolToVisibleConvert}}"></Button>
+            <Button x:Name="FinishButton" Content="Finish" Width="100" HorizontalAlignment="Right" Grid.Column="1" Margin="10" Visibility="{Binding IsLastQuestion, Converter={StaticResource boolToVisibleConvert}}" Click="FinishButton_Click"></Button>
         </Grid>
     </Grid>
 </Page>

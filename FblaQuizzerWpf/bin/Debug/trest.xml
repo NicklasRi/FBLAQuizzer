@@ -1,0 +1,23 @@
+<Quiz xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/FblaQuizzerBusiness.Models">
+  <CreationDate>2020-12-13T13:45:17.943</CreationDate>
+  <Id>81c5ee52-264b-4aaf-b94d-87c5220075fd</Id>
+  <Name>TestQuiz4</Name>
+  <Score>80.0000</Score>
+  <UserAnswer>
+    <_x003C_Letter_x003E_k__BackingField>Retailers</_x003C_Letter_x003E_k__BackingField>
+    <_x003C_Text_x003E_k__BackingField>A</_x003C_Text_x003E_k__BackingField>
+  </UserAnswer>
+  <UserAnswer>
+    <_x003C_Letter_x003E_k__BackingField>Employee withholding form</_x003C_Letter_x003E_k__BackingField>
+    <_x003C_Text_x003E_k__BackingField>C</_x003C_Text_x003E_k__BackingField>
+  </UserAnswer>
+  <UserAnswer>false</UserAnswer>
+  <UserAnswer>
+    <_x003C_Letter_x003E_k__BackingField>Conventional memory</_x003C_Letter_x003E_k__BackingField>
+    <_x003C_Text_x003E_k__BackingField>D</_x003C_Text_x003E_k__BackingField>
+  </UserAnswer>
+  <UserAnswer>
+    <_x003C_Letter_x003E_k__BackingField>Law of comparative advantage</_x003C_Letter_x003E_k__BackingField>
+    <_x003C_Text_x003E_k__BackingField>C</_x003C_Text_x003E_k__BackingField>
+  </UserAnswer>
+</Quiz>

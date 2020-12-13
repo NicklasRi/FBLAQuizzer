@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FblaQuizzerBusiness.Models;
+using FblaQuizzerWpf.Events;
 using FblaQuizzerWpf.ViewModels;
 
 namespace FblaQuizzerWpf.Pages
@@ -21,15 +23,21 @@ namespace FblaQuizzerWpf.Pages
     /// </summary>
     public partial class QuizzesPage : Page
     {
+        public delegate void QuizClickedDelegate(object sender, QuizClickedArgs args);
+
+        public event QuizClickedDelegate QuizClicked;
+
         public QuizzesPage(QuizzesViewModel viewModel)
         {
             InitializeComponent();
+
             this.DataContext = viewModel;
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void QuizzesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            QuizDisplay quiz = (QuizDisplay)this.QuizzesList.SelectedItem;
+            QuizClicked(this, new QuizClickedArgs(quiz.Id));
         }
     }
 }

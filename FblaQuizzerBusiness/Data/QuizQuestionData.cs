@@ -66,123 +66,135 @@ namespace FblaQuizzerBusiness.Data
 
         private static void UpdateMultipleChoiceAnswer(DbConnection cn, MultipleChoiceQuizQuestion question)
         {
-            using(DbCommand command = cn.CreateCommand())
+            if (question.Answer != null)
             {
-                command.CommandText = "SELECT QuizQuestionId FROM MultipleChoiceAnswer where QuizQuestionId = @quizQuestionId";
+                using (DbCommand command = cn.CreateCommand())
+                {
+                    command.CommandText = "SELECT QuizQuestionId FROM MultipleChoiceAnswer where QuizQuestionId = @quizQuestionId";
 
-                DbParameter parameter = command.CreateParameter();
-                parameter.ParameterName = "@quizQuestionId";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.Id;
-                command.Parameters.Add(parameter);
+                    DbParameter parameter = command.CreateParameter();
+                    parameter.ParameterName = "@quizQuestionId";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.Id;
+                    command.Parameters.Add(parameter);
 
-                parameter = command.CreateParameter();
-                parameter.ParameterName = "@answer";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.Answer;
-                command.Parameters.Add(parameter);
+                    parameter = command.CreateParameter();
+                    parameter.ParameterName = "@answer";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.Answer;
+                    command.Parameters.Add(parameter);
 
-                parameter = command.CreateParameter();
-                parameter.ParameterName = "@quizId";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.QuizId;
-                command.Parameters.Add(parameter);
+                    parameter = command.CreateParameter();
+                    parameter.ParameterName = "@quizId";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.QuizId;
+                    command.Parameters.Add(parameter);
 
-                using (DbDataReader reader = command.ExecuteReader()) {
-                    if (!reader.HasRows)
+                    using (DbDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandText = "INSERT INTO MultipleChoiceAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                        if (!reader.HasRows)
+                        {
+                            command.CommandText = "INSERT INTO MultipleChoiceAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                        }
+
+                        else
+                        {
+                            command.CommandText = "UPDATE MultipleChoiceAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                        }
+
+
                     }
-
-                    else
-                    {
-                        command.CommandText = "UPDATE MultipleChoiceAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
-                    }
-
-
+                    command.ExecuteNonQuery();
                 }
-                command.ExecuteNonQuery();
             }
         }
 
         private static void UpdateTextAnswer(DbConnection cn, TextQuizQuestion question)
         {
-            using (DbCommand command = cn.CreateCommand())
+            if (question.Answer != null)
             {
-                command.CommandText = "SELECT QuizQuestionId FROM TextAnswer where QuizQuestionId = @quizQuestionId";
+                using (DbCommand command = cn.CreateCommand())
+                {
+                    command.CommandText = "SELECT QuizQuestionId FROM TextAnswer where QuizQuestionId = @quizQuestionId";
 
-                DbParameter parameter = command.CreateParameter();
-                parameter.ParameterName = "@quizQuestionId";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.Id;
-                command.Parameters.Add(parameter);
+                    DbParameter parameter = command.CreateParameter();
+                    parameter.ParameterName = "@quizQuestionId";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.Id;
+                    command.Parameters.Add(parameter);
 
-                parameter = command.CreateParameter();
-                parameter.ParameterName = "@answer";
-                parameter.DbType = System.Data.DbType.String;
-                parameter.Size = 50;
-                parameter.Value = question.Answer;
-                command.Parameters.Add(parameter);
+                    parameter = command.CreateParameter();
+                    parameter.ParameterName = "@answer";
+                    parameter.DbType = System.Data.DbType.String;
+                    parameter.Size = 50;
+                    parameter.Value = question.Answer;
+                    command.Parameters.Add(parameter);
 
-                parameter = command.CreateParameter();
-                parameter.ParameterName = "@quizId";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.QuizId;
-                command.Parameters.Add(parameter);
+                    parameter = command.CreateParameter();
+                    parameter.ParameterName = "@quizId";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.QuizId;
+                    command.Parameters.Add(parameter);
 
-                using (DbDataReader reader = command.ExecuteReader()) {
-                    if (!reader.HasRows)
+                    using (DbDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandText = "INSERT INTO TextAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                        if (!reader.HasRows)
+                        {
+                            command.CommandText = "INSERT INTO TextAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                        }
+
+                        else
+                        {
+                            command.CommandText = "UPDATE TextAnswer SET AnswerText = @answer WHERE QuizQuestionId = @quizQuestionId";
+                        }
                     }
 
-                    else
-                    {
-                        command.CommandText = "UPDATE TextAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
-                    }
+                    command.ExecuteNonQuery();
                 }
-
-                command.ExecuteNonQuery();
             }
         }
 
         private static void UpdateTrueFalseAnswer(DbConnection cn, TrueFalseQuizQuestion question)
         {
-            using (DbCommand command = cn.CreateCommand())
+            if (question.Answer != null)
             {
-                command.CommandText = "SELECT QuizQuestionId FROM TrueFalseAnswer where QuizQuestionId = @quizQuestionId";
+                using (DbCommand command = cn.CreateCommand())
+                {
+                    command.CommandText = "SELECT QuizQuestionId FROM TrueFalseAnswer where QuizQuestionId = @quizQuestionId";
 
-                DbParameter parameter = command.CreateParameter();
-                parameter.ParameterName = "@quizQuestionId";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.Id;
-                command.Parameters.Add(parameter);
+                    DbParameter parameter = command.CreateParameter();
+                    parameter.ParameterName = "@quizQuestionId";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.Id;
+                    command.Parameters.Add(parameter);
 
-                parameter = command.CreateParameter();
-                parameter.ParameterName = "@answer";
-                parameter.DbType = System.Data.DbType.Boolean;
-                parameter.Value = question.Answer;
-                command.Parameters.Add(parameter);
+                    parameter = command.CreateParameter();
+                    parameter.ParameterName = "@answer";
+                    parameter.DbType = System.Data.DbType.Boolean;
+                    parameter.Value = question.Answer;
+                    command.Parameters.Add(parameter);
 
-                parameter = command.CreateParameter();
-                parameter.ParameterName = "@quizId";
-                parameter.DbType = System.Data.DbType.Guid;
-                parameter.Value = question.QuizId;
-                command.Parameters.Add(parameter);
+                    parameter = command.CreateParameter();
+                    parameter.ParameterName = "@quizId";
+                    parameter.DbType = System.Data.DbType.Guid;
+                    parameter.Value = question.QuizId;
+                    command.Parameters.Add(parameter);
 
-                using (DbDataReader reader = command.ExecuteReader()) {
-                    if (!reader.HasRows)
+                    using (DbDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandText = "INSERT INTO TrueFalseAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                        if (!reader.HasRows)
+                        {
+                            command.CommandText = "INSERT INTO TrueFalseAnswer VALUES(@quizQuestionId, @answer, @quizId)";
+                        }
+
+                        else
+                        {
+                            command.CommandText = "UPDATE TrueFalseAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
+                        }
                     }
 
-                    else
-                    {
-                        command.CommandText = "UPDATE TrueFalseAnswer SET Answer = @answer WHERE QuizQuestionId = @quizQuestionId";
-                    }
+                    command.ExecuteNonQuery();
                 }
-
-                command.ExecuteNonQuery();
             }
         }
 

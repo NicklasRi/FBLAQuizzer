@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,7 +34,10 @@ namespace FblaQuizzerWpf.Pages
 
         private void ViewButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewClicked();   
+            if (ViewClicked != null)
+            {
+                ViewClicked();
+            }
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FblaQuizzerBusiness.Data;
+using FblaQuizzerBusiness.Models;
+using FblaQuizzerWpf.ViewModels;
 
 namespace FblaQuizzerWpf.Controls
 {
@@ -25,20 +28,26 @@ namespace FblaQuizzerWpf.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty AnswerProperty = DependencyProperty.
-            Register("Answer", typeof(string), typeof(TextQuestionControl), new PropertyMetadata(null));
-
-        public string Answer
+        private void AnswerText_LostFocus(object sender, RoutedEventArgs e)
         {
-            get
+            var binding = (sender as TextBox).GetBindingExpression(TextBox.TextProperty);
+            binding.UpdateSource();
+
+
+            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+            TextQuestion question = (TextQuestion)viewModel.Question;
+            TextQuizQuestion quizQuestion = (TextQuizQuestion)this.QuizQuestion;
+
+            if(quizQuestion.Answer != null)
             {
-                return (string)this.GetValue(AnswerProperty);
+                string strippedAnswer = quizQuestion.Answer.Replace(" ", string.Empty);
+
+                string strippedAnswerKey = question.Answer.Replace(" ", string.Empty);
+
+                this.QuizQuestion.Correct = strippedAnswer.Equals(strippedAnswerKey, StringComparison.OrdinalIgnoreCase);
             }
 
-            set
-            {
-                this.SetValue(AnswerProperty, value);
-            }
+            QuizQuestionData.SaveQuizQuestion(viewModel.QuizQuestion);
         }
     }
 }

@@ -5,17 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using FblaQuizzerBusiness.Models;
 
 namespace FblaQuizzerWpf.Converters
 {
-    public class QuestionTypeToEnabledConverter : IValueConverter
+    public class BoolToCorrectConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            QuestionType questionTypeNeeded = (QuestionType)parameter;
-            QuestionType questionTypeGiven = (QuestionType)value;
-            return questionTypeGiven == questionTypeNeeded ? true : false;
+            if(value == null)
+            {
+                return "Incorrect";
+            }
+
+            return (bool)value ? "Correct" : "Incorrect";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

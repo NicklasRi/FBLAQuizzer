@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FblaQuizzerBusiness.Data;
+using FblaQuizzerBusiness.Models;
 using FblaQuizzerWpf.ViewModels;
 
 namespace FblaQuizzerWpf.Controls
@@ -46,14 +47,23 @@ namespace FblaQuizzerWpf.Controls
 
         private void TrueButton_Click(object sender, RoutedEventArgs e)
         {
-            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            QuizQuestionData.SaveQuizQuestion(viewModel.QuizQuestion);
+            SaveQuizQuestion();
         }
 
         private void FalseButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveQuizQuestion();
+        }
+
+        private void SaveQuizQuestion()
+        {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            QuizQuestionData.SaveQuizQuestion(viewModel.QuizQuestion);
+            TrueFalseQuestion question = (TrueFalseQuestion)viewModel.Question;
+
+
+            this.QuizQuestion.Correct = ((TrueFalseQuizQuestion)this.QuizQuestion).Answer == question.Answer;
+
+            QuizQuestionData.SaveQuizQuestion(this.QuizQuestion);
         }
     }
 }

@@ -8,10 +8,15 @@ namespace FblaQuizzerBusiness.Models
     public class QuizQuestion: IQuizQuestion
     {
         public Guid Id { get; set; }
+
         public Guid QuizId { get; set; }
+
         public Guid QuestionId { get; set; }
+
         public bool? Correct { get; set; }
+
         public byte QuestionNumber { get; set; }
+
         public QuestionType QuestionType { get; set; }
     }
 }

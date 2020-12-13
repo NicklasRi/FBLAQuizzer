@@ -30,7 +30,7 @@ namespace FblaQuizzerWpf.Controls
         }
 
         public static readonly DependencyProperty MatchingAnswersProperty = DependencyProperty
-            .Register("MatchingAnswers", typeof(IEnumerable<MatchingAnswerDisplay>), 
+            .Register("MatchingAnswers", typeof(IEnumerable<MatchingAnswerDisplay>),
             typeof(MatchingQuestionControl), new PropertyMetadata(null));
 
         public IEnumerable<MatchingAnswerDisplay> MatchingAnswers
@@ -52,37 +52,43 @@ namespace FblaQuizzerWpf.Controls
             {
                 StackPanel panel = (StackPanel)sender;
                 DataObject data = new DataObject();
-                Label optionLabel = e.Source as Label;
-                if(optionLabel != null) 
+                TextBlock optionLabel = e.Source as TextBlock;
+                if (optionLabel != null)
                 {
                     MatchingAnswerDisplay matchingAnswer = (MatchingAnswerDisplay)optionLabel.DataContext;
                     data.SetData("MatchingAnswerItem", matchingAnswer);
                     DragDrop.DoDragDrop(panel, data, DragDropEffects.Copy | DragDropEffects.Move);
-                }   
+                }
             }
         }
 
         private void OptionItems_Drop(object sender, DragEventArgs e)
         {
             FrameworkElement controlTarget = e.OriginalSource as FrameworkElement;
-            if(controlTarget != null)
+            if (controlTarget != null)
             {
-                MatchingAnswerDisplay target = (MatchingAnswerDisplay)controlTarget.DataContext;
+                Guid targetOptionId = (Guid)controlTarget.Tag;
+
                 MatchingAnswerDisplay source = (MatchingAnswerDisplay)e.Data.GetData("MatchingAnswerItem");
 
                 IEnumerable<MatchingAnswer> matchingAnswers = ((MatchingQuizQuestion)this.QuizQuestion).MatchingAnswers;
-                MatchingAnswer answerTarget = matchingAnswers.First(x => x.MatchingAnswerOptionId == target.MatchingAnswerOptionId);
+                MatchingAnswer answerTarget = matchingAnswers.First(x => x.MatchingAnswerOptionId == targetOptionId);
                 MatchingAnswer answerSource = matchingAnswers.First(x => x.MatchingAnswerOptionId == source.MatchingAnswerOptionId);
 
                 Guid targetId = answerTarget.MatchingAnswerOptionId;
 
                 answerTarget.MatchingAnswerOptionId = answerSource.MatchingAnswerOptionId;
                 answerSource.MatchingAnswerOptionId = targetId;
+
+                QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+                MatchingQuestion question = (MatchingQuestion)viewModel.Question;
+
+                ((MatchingQuizQuestion)this.QuizQuestion).Grade(question);
+
                 QuizQuestionData.SaveQuizQuestion(this.QuizQuestion);
 
                 this.MatchingAnswers = QuizQuestionData.GetMatchingAnswersDisplay(this.QuizQuestion.Id);
             }
-            
         }
     }
 }

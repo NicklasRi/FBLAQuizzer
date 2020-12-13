@@ -9,13 +9,14 @@
       Title="QuizzesPage">
 
     <Grid>
-        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="400" ItemsSource="{Binding Quizzes}" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="QuizzesList" ItemsSource="{Binding Quizzes}" MouseDoubleClick="QuizzesList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="Creation Date" DisplayMemberBinding="{Binding CreationDate}"></GridViewColumn>
+                    <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Score, StringFormat={}{0:#00.0'%'}}"></GridViewColumn> 
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Page>

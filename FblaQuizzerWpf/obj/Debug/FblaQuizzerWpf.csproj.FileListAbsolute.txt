@@ -58,3 +58,9 @@ C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\obj\Debug
 C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\obj\Debug\Controls\MatchingQuestionControl.g.cs
 C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\obj\Debug\Controls\MatchingQuestionControl.baml
 C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\obj\Debug\App.baml
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\obj\Debug\Pages\ResultsPage.g.cs
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\obj\Debug\Pages\ResultsPage.baml
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\bin\Debug\Newtonsoft.Json.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\bin\Debug\Newtonsoft.Json.xml
+C:\Users\gator\Documents\Visual Studio 2019\FblaQuizzer\FblaQuizzerWpf\bin\Debug\System.Net.Http.Formatting.xml

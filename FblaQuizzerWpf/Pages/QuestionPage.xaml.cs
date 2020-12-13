@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using FblaQuizzerBusiness.Data;
 using FblaQuizzerBusiness.Interfaces;
 using FblaQuizzerBusiness.Models;
+using FblaQuizzerData.Data;
 using FblaQuizzerWpf.ViewModels;
 
 namespace FblaQuizzerWpf.Pages
@@ -24,7 +25,9 @@ namespace FblaQuizzerWpf.Pages
     /// </summary>
     public partial class QuestionPage : Page
     {
-        private IEnumerable<QuizQuestionKey> quizQuestionsDisplay = null;
+        public event EventHandler FinishClicked;
+
+        private IEnumerable<QuizQuestionKey> questionIds = null;
         private int questionIndex = 0;
 
         public QuestionPage(QuestionViewModel viewModel)
@@ -33,19 +36,20 @@ namespace FblaQuizzerWpf.Pages
 
             this.DataContext = viewModel;
 
-            quizQuestionsDisplay = QuizQuestionData.GetQuizQuestionKeys(viewModel.Quiz.Id);
+            questionIds = QuizQuestionData.GetQuizQuestionKeys(viewModel.Quiz.Id);
 
-            QuizQuestionKey firstQuizQuestion = quizQuestionsDisplay.First();
+            QuizQuestionKey firstQuizQuestion = questionIds.First();
 
-            this.LoadQuestion(firstQuizQuestion.QuestionId);
             this.LoadQuizQuestion(firstQuizQuestion.Id);
+            this.LoadQuestion(firstQuizQuestion.QuestionId);
+            
         }
 
         private void LoadQuestion(Guid id)
         {
             IQuestion question = QuestionData.GetQuestion(id);
-            this.TopicLabel.Content = question.Topic;
-            this.TextLabel.Content = question.Text;
+            this.TopicLabel.Text = question.Topic;
+            this.TextLabel.Text = question.Text;
 
             QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
             questionViewModel.IsMultipleChoiceQuestion = question.QuestionType == QuestionType.MultipleChoice;
@@ -72,7 +76,7 @@ namespace FblaQuizzerWpf.Pages
             IQuizQuestion quizQuestion = QuizQuestionData.GetQuizQuestion(quizQuestionId);
             QuestionViewModel questionViewModel = (QuestionViewModel)this.DataContext;
             questionViewModel.QuizQuestion = quizQuestion;
-            this.NumberLabel.Content = string.Format("Question {0}", quizQuestion.QuestionNumber);
+            this.NumberLabel.Text = string.Format("Question {0}", quizQuestion.QuestionNumber);
         }
 
         private void LoadMatchingQuestion(MatchingQuestion matchingQuestion)
@@ -102,16 +106,25 @@ namespace FblaQuizzerWpf.Pages
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            QuizQuestionKey quizQuestionDisplay = quizQuestionsDisplay.ElementAt(++questionIndex);
+
+            //users might not make changes to a matching question, but
+            //we need to save it for grading purposes
+            SaveQuestion(viewModel.QuizQuestion, viewModel.Question);
+            
+            QuizQuestionKey quizQuestionDisplay = questionIds.ElementAt(++questionIndex);
             this.LoadQuizQuestion(quizQuestionDisplay.Id);
             this.LoadQuestion(quizQuestionDisplay.QuestionId);
             this.EvaluateButtons(viewModel);
+            
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
             QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
-            QuizQuestionKey quizQuestionDisplay = quizQuestionsDisplay.ElementAt(--questionIndex);
+
+            SaveQuestion(viewModel.QuizQuestion, viewModel.Question);
+
+            QuizQuestionKey quizQuestionDisplay = questionIds.ElementAt(--questionIndex);
             this.LoadQuizQuestion(quizQuestionDisplay.Id);
             this.LoadQuestion(quizQuestionDisplay.QuestionId);
             this.EvaluateButtons(viewModel);
@@ -119,8 +132,51 @@ namespace FblaQuizzerWpf.Pages
 
         private void EvaluateButtons(QuestionViewModel viewModel)
         {
-            viewModel.IsLastQuestion = quizQuestionsDisplay.Count() - 1 == questionIndex;
+            viewModel.IsLastQuestion = questionIds.Count() - 1 == questionIndex;
             viewModel.IsFirstQuestion = questionIndex == 0;
+        }
+
+        private void FinishButton_Click(object sender, RoutedEventArgs e)
+        {
+            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+
+            SaveQuestion(viewModel.QuizQuestion, viewModel.Question);
+
+            Grade();
+
+            FinishClicked(this, EventArgs.Empty);
+        }
+
+        private void Grade()
+        {
+            int correctCounter = 0;
+
+            foreach (QuizQuestionKey key in questionIds)
+            {
+                IQuizQuestion quizQuestion = QuizQuestionData.GetQuizQuestion(key.Id);
+
+                if (quizQuestion.Correct.HasValue && quizQuestion.Correct.Value)
+                {
+                    correctCounter++;
+                }
+            }
+
+            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+
+            viewModel.Quiz.Score = ((decimal)correctCounter / questionIds.Count()) * 100;
+            QuizData.SaveQuiz(viewModel.Quiz);
+        }
+
+        private static void SaveQuestion(IQuizQuestion quizQuestion, IQuestion question)
+        {
+            MatchingQuizQuestion matchingQuizQuestion = quizQuestion as MatchingQuizQuestion;
+
+            if(matchingQuizQuestion != null)
+            {
+                matchingQuizQuestion.Grade((MatchingQuestion)question);
+            }
+
+            QuizQuestionData.SaveQuizQuestion(quizQuestion);
         }
     }
 }

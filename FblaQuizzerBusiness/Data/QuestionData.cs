@@ -103,7 +103,7 @@ namespace FblaQuizzerBusiness.Data
 
                 }
 
-                command.CommandText = @"Select Id, Text, Letter from MultipleChoiceOption where @id = QuestionId";
+                command.CommandText = @"Select Id, Text, Letter from MultipleChoiceOption where @id = QuestionId ORDER BY Letter";
                 
                 using(DbDataReader reader = command.ExecuteReader())
                 {

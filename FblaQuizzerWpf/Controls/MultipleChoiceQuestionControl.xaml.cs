@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using FblaQuizzerBusiness.Data;
 using FblaQuizzerBusiness.Models;
 using FblaQuizzerWpf.CustomControls;
+using FblaQuizzerWpf.ViewModels;
 
 namespace FblaQuizzerWpf.Controls
 {
@@ -47,23 +48,6 @@ namespace FblaQuizzerWpf.Controls
             }
         }
 
-        public static DependencyProperty TestProperty =
-            DependencyProperty.Register
-            ("Test", typeof(Guid?), typeof(MultipleChoiceQuestionControl));
-
-        public Guid? Test
-        {
-            get
-            {
-                return (Guid)this.GetValue(TestProperty);
-            }
-
-            set
-            {
-                this.SetValue(TestProperty, value);
-            }
-        }
-
         public static readonly DependencyProperty AnswerProperty =
             DependencyProperty.Register
             ("Answer", typeof(Guid?), typeof(MultipleChoiceQuestionControl), new PropertyMetadata(null));
@@ -83,9 +67,16 @@ namespace FblaQuizzerWpf.Controls
 
         private void MultipleChoiceRadioButton_Click(object sender, RoutedEventArgs e)
         {
+            QuestionViewModel viewModel = (QuestionViewModel)this.DataContext;
+
             MultipleChoiceRadioButton radioButton = (MultipleChoiceRadioButton)e.Source;
             MultipleChoiceOption answer = (MultipleChoiceOption)radioButton.DataContext;
-            ((MultipleChoiceQuizQuestion)this.QuizQuestion).Answer = answer.Id;
+            MultipleChoiceQuizQuestion quizQuestion = (MultipleChoiceQuizQuestion)this.QuizQuestion;
+            quizQuestion.Answer = answer.Id;
+
+            MultipleChoiceQuestion question = (MultipleChoiceQuestion)viewModel.Question;
+
+            quizQuestion.Correct = quizQuestion.Answer.Value == question.Answer;
 
             QuizQuestionData.SaveQuizQuestion(this.QuizQuestion);
         }
