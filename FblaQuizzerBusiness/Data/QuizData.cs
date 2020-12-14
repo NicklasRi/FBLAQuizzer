@@ -519,6 +519,5 @@ namespace FblaQuizzerData.Data
 
             quizQuestionResult.MatchingResults = results;
         }
-
     }
 }

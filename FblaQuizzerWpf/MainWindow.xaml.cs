@@ -36,13 +36,7 @@ namespace FblaQuizzerWpf
         {
             InitializeComponent();
 
-            if(this.homePage == null)
-            {
-                this.homePage = new HomePage();
-            }
-            homePage.ViewClicked += HomePage_ViewClicked;
-            homePage.CreateClicked += HomePage_CreateClicked;
-            MainFrame.Navigate(homePage);
+            GoToHomePage();
         }
 
         private void HomePage_CreateClicked()
@@ -65,8 +59,14 @@ namespace FblaQuizzerWpf
             {
                 this.quizzesPage = new QuizzesPage(viewModel);
                 this.quizzesPage.QuizClicked += QuizzesPage_QuizClicked;
+                this.quizzesPage.BackClicked += QuizzesPage_BackClicked;
             }
             MainFrame.Navigate(quizzesPage);
+        }
+
+        private void QuizzesPage_BackClicked(object sender, EventArgs e)
+        {
+            GoToHomePage();
         }
 
         private void QuizzesPage_QuizClicked(object sender, Events.QuizClickedArgs args)
@@ -101,8 +101,13 @@ namespace FblaQuizzerWpf
 
         private void ResultsPage_CloseClicked(object sender, EventArgs e)
         {
+            GoToHomePage();
+        }
+
+        private void GoToHomePage()
+        {
             if (this.homePage == null)
-            { 
+            {
                 this.homePage = new HomePage();
                 this.homePage.CreateClicked += HomePage_CreateClicked;
                 this.homePage.ViewClicked += HomePage_ViewClicked;

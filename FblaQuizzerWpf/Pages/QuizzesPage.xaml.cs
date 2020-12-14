@@ -27,6 +27,8 @@ namespace FblaQuizzerWpf.Pages
 
         public event QuizClickedDelegate QuizClicked;
 
+        public event EventHandler BackClicked;
+
         public QuizzesPage(QuizzesViewModel viewModel)
         {
             InitializeComponent();
@@ -36,8 +38,19 @@ namespace FblaQuizzerWpf.Pages
 
         private void QuizzesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            QuizDisplay quiz = (QuizDisplay)this.QuizzesList.SelectedItem;
-            QuizClicked(this, new QuizClickedArgs(quiz.Id));
+            if (this.QuizzesList.SelectedItem != null)
+            {
+                QuizDisplay quiz = (QuizDisplay)this.QuizzesList.SelectedItem;
+                QuizClicked(this, new QuizClickedArgs(quiz.Id));
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(BackClicked != null)
+            {
+                this.BackClicked(this, EventArgs.Empty);
+            } 
         }
     }
 }

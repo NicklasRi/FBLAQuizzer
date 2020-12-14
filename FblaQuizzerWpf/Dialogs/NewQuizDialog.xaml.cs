@@ -22,6 +22,13 @@ namespace FblaQuizzerWpf.Dialogs
         public NewQuizDialog()
         {
             InitializeComponent();
+
+            this.Loaded += NewQuizDialog_Loaded;
+        }
+
+        private void NewQuizDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.NameText.Focus();
         }
 
         public string QuizName { get { return NameText.Text; } }

@@ -17,7 +17,9 @@
                 <DataTemplate>
                     <StackPanel Margin="10">
                         <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding PromptText}" Height="40" Margin="4"></TextBlock>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="40">
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding PromptText}" Margin="4"></TextBlock>
+                            </ScrollViewer>
                         </Border>
                     </StackPanel>
                 </DataTemplate>
@@ -28,7 +30,9 @@
                 <DataTemplate>
                     <StackPanel Margin="10" MouseMove="StackPanel_MouseMove">
                         <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
-                            <TextBlock TextWrapping="Wrap" Tag="{Binding MatchingAnswerOptionId}" Text="{Binding OptionText}" Height="40" Margin="4"></TextBlock>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="40">
+                            <TextBlock TextWrapping="Wrap" Tag="{Binding MatchingAnswerOptionId}" Text="{Binding OptionText}" Margin="4"></TextBlock>
+                            </ScrollViewer>
                         </Border>
                     </StackPanel>
                 </DataTemplate>

@@ -9,6 +9,10 @@
       Title="QuizzesPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <ListView x:Name="QuizzesList" ItemsSource="{Binding Quizzes}" MouseDoubleClick="QuizzesList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
@@ -18,5 +22,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Grid Grid.Row="1">
+            <Button Width="100" x:Name="BackButton" Content="Back" HorizontalAlignment="Right" Click="BackButton_Click"></Button>
+        </Grid>
     </Grid>
 </Page>
