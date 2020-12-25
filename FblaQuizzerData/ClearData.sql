@@ -1,0 +1,15 @@
+DELETE FROM MultipleChoiceAnswer
+DELETE FROM MatchingAnswer
+DELETE FROM TrueFalseAnswer
+DELETE FROM TextAnswer
+DELETE FROM QuizQuestion
+DELETE FROM Quiz
+DELETE FROM MultipleChoiceQuestionKey
+DELETE FROM TextQuestionKey
+DELETE FROM TrueFalseQuestionKey
+DELETE FROM MatchingQuestionKey
+DELETE FROM MultipleChoiceOption
+DELETE FROM MatchingAnswerOption
+DELETE FROM MatchingAnswerPrompt
+DELETE FROM QuizQuestion
+DELETE FROM Question

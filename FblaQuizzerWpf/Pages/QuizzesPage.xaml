@@ -23,7 +23,7 @@
             </ListView.View>
         </ListView>
         <Grid Grid.Row="1">
-            <Button Width="100" x:Name="BackButton" Content="Back" HorizontalAlignment="Right" Click="BackButton_Click"></Button>
+            <Button Margin="4" Width="100" x:Name="BackButton" Content="Back" HorizontalAlignment="Right" Click="BackButton_Click"></Button>
         </Grid>
     </Grid>
 </Page>
